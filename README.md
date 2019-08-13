@@ -6,22 +6,12 @@
 
 Puppet module to install and run [Hashicorp Vault](https://vaultproject.io).
 
-## Path to 2.0
-
-Development on a [2.0 release of this module](https://github.com/jsok/puppet-vault/milestone/1) has begun on the `master` branch.
-This includes:
-
- * Dropping EOL Puppet 3 support
- * Adding Puppet 5 support
- * Introducing typed parameters wherever possible
- * Some overdue vault config parameter updates/renames as they have evolved over time
-
 ## Support
 
 This module is currently only tested on:
 
-* Ubuntu 14.04
 * Ubuntu 16.04
+* Ubuntu 18.04
 * CentOS/RedHat 6
 * CentOS/RedHat 7
 
@@ -49,6 +39,8 @@ Please see [The official documentation](https://www.vaultproject.io/docs/configu
 * `bin_dir`: Directory the vault executable will be installed in.
 
 * `config_dir`: Directory the vault configuration will be kept in.
+
+* `config_mode`: Mode of the configuration file (config.json). Defaults to '0750'
 
 * `purge_config_dir`: Whether the `config_dir` should be purged before installing the generated config.
 
@@ -93,7 +85,7 @@ The module will **not** manage any required packages to un-archive, e.g. `unzip`
 * `download_dir`: Path to download the zip file to, default: `/tmp`
 * `manage_download_dir`: Boolean, whether or not to create the download directory, default: `false`
 * `download_filename`: Filename to (temporarily) save the downloaded zip file, default: `vault.zip`
-* `version`: The Version of vault to download. default: `0.8.3`
+* `version`: The Version of vault to download. default: `1.1.2`
 * `manage_service_file`: Will manage the service file. default: true
 * `manage_file_capabilities`: Will manage file capabilities of the vault binary. default: `true`
 
@@ -199,12 +191,9 @@ To run RSpec unit tests: ``bundle exec rake spec``
 
 To run RSpec unit tests, puppet-lint, syntax checks and metadata lint: ``bundle exec rake test``
 
-To run Beaker acceptance tests: ``BEAKER_set=<nodeset name> bundle exec rake acceptance``
-where ``<nodeset name>`` is one of the filenames in ``spec/acceptance/nodesets`` without the trailing ``.yml``, specifically one of:
-
-* ``ubuntu-14.04-x86_64-docker``
-* ``centos-6-x86_64-docker``
-* ``centos-7-x86_64-docker``
+To run Beaker acceptance tests: ``BEAKER_set=<nodeset name> BEAKER_PUPPET_COLLECTION=puppet5 bundle exec rake acceptance``
+where ``<nodeset name>`` is one of the filenames in ``spec/acceptance/nodesets`` without the trailing ``.yml``,
+e.g. `ubuntu-18.04-x86_64-docker`.
 
 ## Related Projects
 
